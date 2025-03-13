@@ -3,7 +3,7 @@ import Header from "./Header";
 import Main from "./Main";
 import Loader from "./Loader";
 import Error from "./Error";
-import StartScreen from "../StartScreen";
+import StartScreen from "./StartScreen";
 import Question from "./Question";
 import NextButton from "./NextButton";
 import Progress from "./Progress";
@@ -57,6 +57,13 @@ function reducer(state, action) {
         ...state,
         status: "finished",
         highscore: state.points > state.highscore ? state.points : state.highscore
+      };
+    case "restart":
+      return {
+        ...initialState,
+        questions: state.questions,
+        highscore: state.highscore,
+        status: "ready",
       };
     default: 
       throw new Error("Action unknown");
@@ -116,6 +123,7 @@ export default function App() {
           points={points}
           maxPossiblePoints={maxPossiblePoints}
           highscore={highscore}
+          dispatch={dispatch}
         />
       )}
     </Main>
